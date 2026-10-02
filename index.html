@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Little Surprise For You 💖</title>
+<link rel="stylesheet" href="./file/default.css">
+<script src="./file/jquery.min.js"></script>
+<script src="./file/jscex.min.js"></script>
+<script src="./file/jscex-parser.js"></script>
+<script src="./file/jscex-jit.js"></script>
+<script src="./file/jscex-builderbase.min.js"></script>
+<script src="./file/jscex-async.min.js"></script>
+<script src="./file/jscex-async-powerpack.min.js"></script>
+<script src="./file/functions.js"></script>
+<script src="./file/love.js"></script>
+</head>
+<body>
+<canvas id="starsCanvas"></canvas>
+<canvas id="fxCanvas"></canvas>
+
+<!-- 1. CINEMATIC OPENING -->
+<section id="startScreen" class="scene active">
+  <div class="nebula nebula-a"></div><div class="nebula nebula-b"></div>
+  <div class="start-content">
+    <div class="tiny-kicker">A SECRET IS WAITING FOR YOU</div>
+    <div class="orbit-heart"><span>♥</span><i></i><i></i><i></i></div>
+    <h1>Hey, Beautiful...</h1>
+    <p class="start-sub">Tonight, the stars have a little story<br>they want to tell you.</p>
+    <button id="startBtn" class="magic-btn">✨ Begin The Story ✨</button>
+    <p class="hint">Turn your sound on • headphones recommended 🎧</p>
+  </div>
+</section>
+
+<!-- 2. STAR HUNT -->
+<section id="starScene" class="scene hidden">
+  <div class="scene-copy top-copy">
+    <span class="eyebrow">CHAPTER 01</span>
+    <h2>Find the <em>seven stars</em></h2>
+    <p>Somewhere in this sky, seven little stars are hiding.<br>Tap them all to unlock the next surprise.</p>
+    <div class="progress"><span id="starProgress">0</span> / 7 found</div>
+  </div>
+  <div id="starField"></div>
+</section>
+
+<!-- 3. SECRET LETTER -->
+<section id="letterScene" class="scene hidden">
+  <div class="letter-glow"></div>
+  <div class="envelope-wrap">
+    <div id="envelope" class="envelope">
+      <div class="envelope-back"></div>
+      <div class="envelope-paper"><span class="paper-line">For someone very special...</span></div>
+      <div class="envelope-flap"></div>
+      <div class="seal">♥</div>
+    </div>
+    <p id="letterHint">Tap the little heart to open your secret letter</p>
+    <div id="letterMessage" class="letter-message">
+      <div class="handwritten">If I could bottle one feeling...</div>
+      <p>I would save the feeling of being lucky enough to know you. 💗</p>
+      <button id="letterNext" class="magic-btn small">Keep going ✨</button>
+    </div>
+  </div>
+</section>
+
+<!-- 4. PHOTO REEL -->
+<section id="reelScene" class="scene hidden">
+  <div class="reel-heading">
+    <span class="eyebrow">CHAPTER 02</span>
+    <h2>A tiny reel of <em>you & me</em></h2>
+    <p>Add your own photos to <b>photos/</b> and replace the sample names.</p>
+  </div>
+  <div class="reel-stage">
+    <div class="reel-glow"></div>
+    <div id="photoReel" class="photo-reel"></div>
+    <div class="reel-controls">
+      <button id="prevPhoto" class="circle-btn">‹</button>
+      <div id="reelDots" class="reel-dots"></div>
+      <button id="nextPhoto" class="circle-btn">›</button>
+    </div>
+  </div>
+  <button id="reelNext" class="magic-btn">There's more... 💞</button>
+</section>
+
+<!-- 5. FINAL UNLOCK -->
+<section id="unlockScene" class="scene hidden">
+  <div class="unlock-ring"></div>
+  <div class="unlock-content">
+    <span class="eyebrow">ONE LAST SECRET</span>
+    <div id="unlockHeart" class="unlock-heart">♥</div>
+    <h2>One last little thing...</h2>
+    <p>You have followed the stars, opened a letter,<br>and walked through a few memories.</p>
+    <button id="unlockBtn" class="magic-btn">Touch the heart 💗</button>
+  </div>
+</section>
+
+<!-- FINAL: ORIGINAL TREE + MESSAGE ONLY -->
+<div id="main">
+  <div id="error"><a href="https://www.google.com/chrome/">Chrome</a> or Firefox is recommended for this experience.</div>
+  <audio preload="auto" id="myAudio" loop><source src="aud.mp3" type="audio/mp3"></audio>
+  <div id="wrap">
+    <div class="top-title">FOR THE MOST SPECIAL PERSON 💫</div>
+    <div id="text">
+      <div id="code">
+        <span class="say">My beautiful wife 💞</span><br>
+        <span class="say">Happy Birthday 🎈</span><br>
+        <span class="say">May Allah bless you 🍀</span><br>
+        <span class="say">And give u many happiness 💕</span><br>
+        <span class="say">I loved you ❤️</span><br>
+        <span class="say">And I will always love u 🥺 ❤️</span><br>
+        <span class="say">Hope u have a great day today ❤️😘</span><br>
+      </div>
+    </div>
+    <div id="clock-box"><span id="clock">577 days 0 hours 0 minutes 0 seconds</span></div>
+    <canvas id="canvas" width="1100" height="680"></canvas>
+  </div>
+
+  <!-- ADDED FINAL-PAGE EXTRAS: original tree remains untouched -->
+  <div id="finalExtras" aria-hidden="false">
+    <div class="final-glow-orb orb-one"></div>
+    <div class="final-glow-orb orb-two"></div>
+    <div class="final-love-badge">∞ &nbsp; FOREVER &amp; ALWAYS &nbsp; ∞</div>
+    <div class="final-side-note">Every chapter led to this moment. 💗</div>
+    <div class="final-action-stack">
+      <button id="glowLoveBtn" class="final-mini-btn" type="button">💗 Glow Love</button>
+      <button id="heartRainBtn" class="final-mini-btn" type="button">💞 Heart Rain</button>
+      <button id="sparkleTreeBtn" class="final-mini-btn" type="button">✨ Sparkle</button>
+      <button id="butterflyBtn" class="final-mini-btn" type="button">🦋 Butterflies</button>
+      <button id="restartJourneyBtn" class="final-mini-btn restart" type="button">↻ Restart Journey</button>
+    </div>
+  </div>
+</div>
+
+<div id="storyPrompt" class="story-prompt"></div>
+
+<script>
+(function(){
+  'use strict';
+  var audio=document.getElementById('myAudio'), audioCtx=null, started=false;
+  var scenes=['startScreen','starScene','letterScene','reelScene','unlockScene'];
+  var currentScene=0;
+
+  function initAudio(){
+    if(!audioCtx){var AC=window.AudioContext||window.webkitAudioContext;if(AC) audioCtx=new AC();}
+    if(audioCtx&&audioCtx.state==='suspended') audioCtx.resume();
+  }
+  function clickSound(kind){
+    initAudio(); if(!audioCtx)return;
+    var now=audioCtx.currentTime, o=audioCtx.createOscillator(), g=audioCtx.createGain();
+    o.type=kind==='magic'?'sine':'triangle';
+    o.frequency.setValueAtTime(kind==='magic'?520:680,now);
+    o.frequency.exponentialRampToValueAtTime(kind==='magic'?1040:900,now+.1);
+    g.gain.setValueAtTime(.0001,now);g.gain.exponentialRampToValueAtTime(kind==='magic'?.12:.045,now+.012);g.gain.exponentialRampToValueAtTime(.0001,now+.15);
+    o.connect(g);g.connect(audioCtx.destination);o.start(now);o.stop(now+.16);
+  }
+  document.addEventListener('click',function(e){
+    if(e.target.closest('button,.star-dot,.seal,#envelope,#unlockHeart,.photo-card')) clickSound('magic'); else clickSound('normal');
+    spawnHeart(e.clientX,e.clientY,1);
+  });
+
+  var starCanvas=document.getElementById('starsCanvas'), starCtx=starCanvas.getContext('2d'), fxCanvas=document.getElementById('fxCanvas'), fxCtx=fxCanvas.getContext('2d');
+  var stars=[],shooting=[],particles=[],hearts=[];
+  function resize(){starCanvas.width=fxCanvas.width=innerWidth;starCanvas.height=fxCanvas.height=innerHeight;makeStars();}
+  function makeStars(){stars=[];var n=Math.min(260,Math.max(100,Math.floor(innerWidth*innerHeight/5800)));for(var i=0;i<n;i++)stars.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:.3+Math.random()*1.6,a:.2+Math.random()*.7,s:.004+Math.random()*.02,p:Math.random()*7});}
+  function sky(t){
+    var g=starCtx.createRadialGradient(innerWidth*.5,innerHeight*.38,0,innerWidth*.5,innerHeight*.5,innerWidth*.9);g.addColorStop(0,'#15183a');g.addColorStop(.55,'#050713');g.addColorStop(1,'#010105');starCtx.fillStyle=g;starCtx.fillRect(0,0,innerWidth,innerHeight);
+    for(var i=0;i<stars.length;i++){var s=stars[i],a=Math.max(.04,s.a+Math.sin(t*s.s+s.p)*.3);starCtx.beginPath();starCtx.arc(s.x,s.y,s.r,0,Math.PI*2);starCtx.fillStyle='rgba(255,255,255,'+a+')';starCtx.fill();}
+    if(Math.random()<.007)shooting.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight*.45,vx:10,vy:5,life:1});
+    for(var j=shooting.length-1;j>=0;j--){var sh=shooting[j];sh.x+=sh.vx;sh.y+=sh.vy;sh.life-=.025;starCtx.strokeStyle='rgba(255,255,255,'+sh.life+')';starCtx.lineWidth=2;starCtx.beginPath();starCtx.moveTo(sh.x,sh.y);starCtx.lineTo(sh.x-80,sh.y-45);starCtx.stroke();if(sh.life<=0)shooting.splice(j,1);}
+    requestAnimationFrame(sky);
+  }
+  function spawnHeart(x,y,n){for(var i=0;i<n;i++)hearts.push({x:x,y:y,vx:(Math.random()-.5)*1.4,vy:-1.2-Math.random()*1.8,life:1,size:9+Math.random()*9});}
+  function fireworks(x,y){for(var i=0;i<100;i++){var a=Math.random()*Math.PI*2,s=1+Math.random()*6;particles.push({x:x,y:y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:1,size:1+Math.random()*3});}}
+  function fx(){fxCtx.clearRect(0,0,innerWidth,innerHeight);for(var i=particles.length-1;i>=0;i--){var p=particles[i];p.x+=p.vx;p.y+=p.vy;p.vy+=.04;p.life-=.017;fxCtx.globalAlpha=Math.max(0,p.life);fxCtx.beginPath();fxCtx.arc(p.x,p.y,p.size,0,Math.PI*2);fxCtx.fillStyle='#fff';fxCtx.fill();if(p.life<=0)particles.splice(i,1);}for(var j=hearts.length-1;j>=0;j--){var h=hearts[j];h.x+=h.vx;h.y+=h.vy;h.life-=.018;fxCtx.globalAlpha=Math.max(0,h.life);fxCtx.font=h.size+'px Arial';fxCtx.fillStyle='#ff78b7';fxCtx.fillText('♥',h.x,h.y);if(h.life<=0)hearts.splice(j,1);}fxCtx.globalAlpha=1;requestAnimationFrame(fx);}
+  resize();addEventListener('resize',resize);requestAnimationFrame(sky);requestAnimationFrame(fx);
+
+  function showScene(id){scenes.forEach(function(s){document.getElementById(s).classList.add('hidden');document.getElementById(s).classList.remove('active');});var el=document.getElementById(id);el.classList.remove('hidden');void el.offsetWidth;el.classList.add('active');currentScene=scenes.indexOf(id);}
+  // Opening screen: this was accidentally missing in the previous build.
+  // Keep the first interaction simple and reliable: start the story, then reveal Chapter 01.
+  document.getElementById('startBtn').onclick=function(){
+    initAudio();
+    if(audio){
+      audio.volume=0.72;
+      var playPromise=audio.play();
+      if(playPromise && playPromise.catch) playPromise.catch(function(){});
+    }
+    clickSound('magic');
+    showScene('starScene');
+    prompt('⭐ Find all seven hidden stars to continue...');
+  };
+
+  function prompt(t){var p=document.getElementById('storyPrompt');p.textContent=t;p.classList.add('show');clearTimeout(p._timer);p._timer=setTimeout(function(){p.classList.remove('show');},3000);}
+
+  /* STAR HUNT */
+  var starField=document.getElementById('starField'), found=0;
+  var starPositions=[[14,25],[31,67],[55,20],[73,57],[87,29],[22,44],[64,76]];
+  starPositions.forEach(function(pos,i){var s=document.createElement('button');s.className='star-dot';s.style.left=pos[0]+'%';s.style.top=pos[1]+'%';s.innerHTML='✦';s.setAttribute('aria-label','Hidden star '+(i+1));s.onclick=function(){if(s.classList.contains('found'))return;s.classList.add('found');found++;document.getElementById('starProgress').textContent=found;fireworks(s.getBoundingClientRect().left,s.getBoundingClientRect().top);if(found===7){prompt('🌟 You found all seven. Something is waiting for you...');setTimeout(function(){showScene('letterScene');},1300);}};starField.appendChild(s);});
+
+  /* LETTER */
+  var envelope=document.getElementById('envelope');
+  envelope.onclick=function(){if(envelope.classList.contains('open'))return;envelope.classList.add('open');document.getElementById('letterHint').style.opacity='0';document.getElementById('letterMessage').classList.add('show');for(var i=0;i<8;i++)spawnHeart(innerWidth/2+(Math.random()-.5)*150,innerHeight*.43,1);};
+  document.getElementById('letterNext').onclick=function(){showScene('reelScene');startReel();};
+
+  /* PHOTO REEL */
+  var photos=[
+    ['photos/photo1.jpg','photos/photo1.svg','The smile that makes everything softer.'],
+    ['photos/photo2.jpg','photos/photo2.svg','A memory I would replay a thousand times.'],
+    ['photos/photo3.jpg','photos/photo3.svg','One of my favorite little moments.'],
+    ['photos/photo4.jpg','photos/photo4.svg','You, being effortlessly you. 💕'],
+    ['photos/photo5.jpg','photos/photo5.svg','And there are still so many memories to make.'],
+    ['photos/photo6.jpg','photos/photo6.svg','This is only the beginning...']
+  ];
+  var reel=document.getElementById('photoReel'),dots=document.getElementById('reelDots'),ri=0,reelStarted=false,reelTimer;
+  photos.forEach(function(p,i){var card=document.createElement('div');card.className='photo-card';card.innerHTML='<div class="photo-wrap"><img src="'+p[0]+'" data-fallback="'+p[1]+'" alt="Memory '+(i+1)+'"><div class="photo-shine"></div></div><div class="photo-note">'+p[2]+'</div><div class="photo-number">0'+(i+1)+'</div>';card.onclick=function(){ri=i;renderReel();};reel.appendChild(card);var d=document.createElement('button');d.className='reel-dot';d.onclick=function(){ri=i;renderReel();};dots.appendChild(d);});
+  document.querySelectorAll('.photo-card img').forEach(function(img){img.onerror=function(){if(img.src.indexOf(img.dataset.fallback)===-1)img.src=img.dataset.fallback;};});
+  function renderReel(){var cards=reel.querySelectorAll('.photo-card');cards.forEach(function(c,i){var off=i-ri;if(off>3)off-=photos.length;if(off<-3)off+=photos.length;c.style.setProperty('--off',off);c.style.transform='translate(-50%,-50%) translateX('+(off*48)+'px) scale('+(1-Math.min(Math.abs(off),3)*.09)+') rotateY('+(off*-10)+'deg)';c.style.opacity=String(1-Math.min(Math.abs(off),3)*.22);c.style.zIndex=String(10-Math.abs(off));c.classList.toggle('current',off===0);});dots.querySelectorAll('.reel-dot').forEach(function(d,i){d.classList.toggle('active',i===ri);});}
+  function startReel(){if(reelStarted)return;reelStarted=true;renderReel();reelTimer=setInterval(function(){ri=(ri+1)%photos.length;renderReel();},3500);}
+  document.getElementById('prevPhoto').onclick=function(){ri=(ri-1+photos.length)%photos.length;renderReel();};
+  document.getElementById('nextPhoto').onclick=function(){ri=(ri+1)%photos.length;renderReel();};
+  document.getElementById('reelNext').onclick=function(){clearInterval(reelTimer);showScene('unlockScene');};
+
+  /* FINAL UNLOCK */
+  document.getElementById('unlockBtn').onclick=goToTree;
+  document.getElementById('unlockHeart').onclick=goToTree;
+
+  /* FINAL PAGE: the original tree + message experience.
+     It is initialized only after #main is visible, then starts automatically. */
+  var treeReady=false, canvas=null, tree=null, seed=null, foot=null, hold=0;
+
+  function fitFinalLayout(){
+    var wrap=document.getElementById('wrap');
+    if(!wrap)return;
+    var w=window.innerWidth||document.documentElement.clientWidth;
+    var h=window.innerHeight||document.documentElement.clientHeight;
+    var scale=Math.min(1, (w-18)/1100, (h-92)/680);
+    scale=Math.max(0.26, scale);
+    wrap.style.transform='scale('+scale+')';
+    wrap.style.transformOrigin='top center';
+    wrap.style.marginTop='8px';
+  }
+  window.addEventListener('resize',fitFinalLayout);
+
+  function initTreeExperience(){
+    if(treeReady)return;
+    canvas=$('#canvas');
+    if(!canvas.length || !canvas[0].getContext){$('#error').show();return;}
+
+    var width=1100, height=680;
+    canvas.attr('width',width).attr('height',height);
+    var opts={
+      seed:{x:width/2-20,color:'rgb(190, 26, 37)',scale:2},
+      branch:[[535,680,570,250,500,200,30,100,[[540,500,455,417,340,400,13,100,[[450,435,434,430,394,395,2,40]]],[550,445,600,356,680,345,12,100,[[578,400,648,409,661,426,3,80]]],[539,281,537,248,534,217,3,40],[546,397,413,247,328,244,9,80,[[427,286,383,253,371,205,2,40],[498,345,435,315,395,330,4,60]]],[546,357,608,252,678,221,6,100,[[590,293,646,277,648,271,2,80]]]]]],
+      bloom:{num:700,width:1080,height:650},
+      footer:{width:1200,height:5,speed:10}
+    };
+
+    tree=new Tree(canvas[0],width,height,opts);
+    seed=tree.seed;
+    foot=tree.footer;
+    treeReady=true;
+
+    var seedAnimate=eval(Jscex.compile('async',function(){
+      seed.draw();
+      while(hold){$await(Jscex.Async.sleep(10));}
+      while(seed.canScale()){
+        seed.scale(.95);
+        $await(Jscex.Async.sleep(10));
+      }
+      while(seed.canMove()){
+        seed.move(0,2);
+        foot.draw();
+        $await(Jscex.Async.sleep(10));
+      }
+    }));
+
+    var growAnimate=eval(Jscex.compile('async',function(){
+      do{
+        tree.grow();
+        $await(Jscex.Async.sleep(10));
+      }while(tree.canGrow());
+    }));
+
+    var flowAnimate=eval(Jscex.compile('async',function(){
+      do{
+        tree.flower(2);
+        $await(Jscex.Async.sleep(10));
+      }while(tree.canFlower());
+    }));
+
+    var moveAnimate=eval(Jscex.compile('async',function(){
+      tree.snapshot('p1',240,0,610,680);
+      while(tree.move('p1',500,0)){
+        foot.draw();
+        $await(Jscex.Async.sleep(10));
+      }
+      foot.draw();
+      tree.snapshot('p2',500,0,610,680);
+      canvas.parent().css('background','url('+tree.toDataURL('image/png')+') center top / 1100px 680px no-repeat');
+      canvas.css('background','transparent');
+      $await(Jscex.Async.sleep(300));
+    }));
+
+    var textAnimate=eval(Jscex.compile('async',function(){
+      $('#code').show().typewriter();
+    }));
+
+    var runAsync=eval(Jscex.compile('async',function(){
+      $await(seedAnimate());
+      $await(growAnimate());
+      $await(flowAnimate());
+      $await(moveAnimate());
+      textAnimate().start();
+    }));
+
+    runAsync().start();
+  }
+
+  // Final-page extras: these only add interaction; the original tree is unchanged.
+  function glowLove(){
+    var el=document.createElement('div');
+    el.className='love-burst';
+    el.innerHTML='♥';
+    document.body.appendChild(el);
+    setTimeout(function(){el.classList.add('show');},20);
+    setTimeout(function(){el.classList.add('fade');},1300);
+    setTimeout(function(){el.remove();},2300);
+    for(var i=0;i<35;i++){
+      var a=Math.random()*Math.PI*2, s=1+Math.random()*5;
+      particles.push({x:innerWidth/2,y:innerHeight*.52,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:1,size:1.5+Math.random()*3});
+    }
+    prompt('💗 You make everything glow...');
+  }
+  function heartRain(){
+    for(var i=0;i<55;i++){
+      (function(i){setTimeout(function(){
+        spawnHeart(Math.random()*innerWidth,-10,1);
+        if(hearts.length){var h=hearts[hearts.length-1];h.vy=.8+Math.random()*1.8;h.vx=(Math.random()-.5)*1.2;h.size=10+Math.random()*13;}
+      },i*38);})(i);
+    }
+    prompt('💞 A little rain of love, just for you...');
+  }
+  function sparkleTree(){
+    var rect=document.getElementById('canvas').getBoundingClientRect();
+    for(var i=0;i<6;i++){
+      setTimeout(function(){
+        fireworks(rect.left+rect.width*(.34+Math.random()*.38),rect.top+rect.height*(.18+Math.random()*.45));
+      },i*220);
+    }
+    prompt('✨ The whole tree is sparkling for you...');
+  }
+  document.getElementById('glowLoveBtn').onclick=function(e){e.stopPropagation();clickSound('magic');glowLove();};
+  document.getElementById('heartRainBtn').onclick=function(e){e.stopPropagation();clickSound('magic');heartRain();};
+  document.getElementById('sparkleTreeBtn').onclick=function(e){e.stopPropagation();clickSound('magic');sparkleTree();};
+  document.getElementById('butterflyBtn').onclick=function(e){e.stopPropagation();clickSound('magic');butterflies();};
+  function butterflies(){
+    for(var i=0;i<12;i++){
+      (function(i){setTimeout(function(){
+        var b=document.createElement('div');
+        b.className='magic-butterfly';
+        b.textContent='🦋';
+        b.style.left=(8+Math.random()*84)+'vw';
+        b.style.top=(55+Math.random()*30)+'vh';
+        b.style.setProperty('--dx',(Math.random()-.5)*180+'px');
+        b.style.setProperty('--dy',(-120-Math.random()*180)+'px');
+        document.body.appendChild(b);
+        setTimeout(function(){b.remove();},3600);
+      },i*140);})(i);
+    }
+    prompt('🦋 Little butterflies are dancing around your tree...');
+  }
+
+  document.getElementById('restartJourneyBtn').onclick=function(e){
+    e.stopPropagation();
+    clickSound('magic');
+    window.location.reload();
+  };
+
+  function goToTree(){
+    if(treeReady)return;
+    scenes.forEach(function(s){
+      var el=document.getElementById(s);
+      el.classList.add('hidden');
+      el.classList.remove('active');
+    });
+    var main=document.getElementById('main');
+    main.classList.add('visible');
+    fitFinalLayout();
+    window.scrollTo(0,0);
+    // Wait until the final page has a real layout before creating the canvas tree.
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        initTreeExperience();
+      });
+    });
+  }
+
+})();
+</script>
+</body>
+</html>
