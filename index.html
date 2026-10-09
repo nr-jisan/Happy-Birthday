@@ -37,7 +37,8 @@
   <div class="scene-copy top-copy">
     <span class="eyebrow">CHAPTER 01</span>
     <h2>Find the <em>Seven Stars</em></h2>
-    <p>Somewhere in this sky, seven little stars are hiding. You are the Star of my life.<br>Tap them all to unlock the next surprise.</p>
+    <p>Somewhere in this sky, seven little stars are hiding.<br> You are the star of my life, the one who makes even my darkest nights feel beautiful.<br> Your presence brings light to my world in ways words could never fully explain.<br> No matter how dark the sky gets, you will always be the brightest star in my universe. ❤️
+<br>Tap them all to unlock the next surprise.</p>
     <div class="progress"><span id="starProgress">0</span> / 7 found</div>
   </div>
   <div id="starField"></div>
@@ -69,7 +70,7 @@ and every breath. 🫶🏻✨</span></div>
 <section id="reelScene" class="scene hidden">
   <div class="reel-heading">
     <span class="eyebrow">CHAPTER 02</span>
-    <h2>A tiny reel of <em>you & me</em></h2>
+    <h2>A tiny reel of <em>the most beautiful person I ever met.</em></h2>
     <p>Add your own photos to <b>photos/</b> and replace the sample names.</p>
   </div>
   <div class="reel-stage">
@@ -104,13 +105,26 @@ and every breath. 🫶🏻✨</span></div>
     <div class="top-title">FOR THE MOST SPECIAL PERSON 💫</div>
     <div id="text">
       <div id="code">
-        <span class="say">My beautiful wife 💞</span><br>
-        <span class="say">Happy Birthday 🎈</span><br>
-        <span class="say">May Allah bless you 🍀</span><br>
-        <span class="say">And give u many happiness 💕</span><br>
-        <span class="say">I loved you ❤️</span><br>
-        <span class="say">And I will always love u 🥺 ❤️</span><br>
-        <span class="say">Hope u have a great day today ❤️😘</span><br>
+<span class="say">My Dear Queen 💞</span><br>
+<span class="say">Happy Birthday 🎂</span><br>
+<span class="say">May Allah protect </span><br>
+<span class="say">your smile.🤲🏻</span><br>
+<span class="say">And bless </span><br>
+<span class="say">your every tomorrow ☀️</span><br>
+<span class="say">May your heart always </span><br>
+<span class="say">find peace.🕊️</span><br>
+<span class="say">You'll always be </span><br>
+<span class="say">special to me.🌹</span><br>
+<span class="say">My heart </span><br>
+<span class="say">still chooses you. 🥀</span><br>
+<span class="say">In silence 🌙</span><br>
+<span class="say">In distance 🕯️</span><br>
+<span class="say">In every</span><br>
+<span class="say">unspoken prayer. 🤲🏻</span><br>
+<span class="say">And I'll wait </span><br>
+<span class="say">Until the last </span><br>
+<span class="say">drop of hope. ⏳❤️‍🩹</span><br>
+<span class="say">My Forever Queen 👑❤️</span>
       </div>
     </div>
     <div id="clock-box"><span id="clock">577 days 0 hours 0 minutes 0 seconds</span></div>
@@ -205,12 +219,12 @@ and every breath. 🫶🏻✨</span></div>
 
   /* PHOTO REEL */
   var photos=[
-    ['photos/photo1.jpg','photos/photo1.svg','The smile that makes everything softer.'],
-    ['photos/photo2.jpg','photos/photo2.svg','A memory I would replay a thousand times.'],
-    ['photos/photo3.jpg','photos/photo3.svg','One of my favorite little moments.'],
-    ['photos/photo4.jpg','photos/photo4.svg','You, being effortlessly you. 💕'],
-    ['photos/photo5.jpg','photos/photo5.svg','And there are still so many memories to make.'],
-    ['photos/photo6.jpg','photos/photo6.svg','This is only the beginning...']
+    ['photos/photo1.jpg','photos/photo1.svg','Most Faovourite one of mine, Nil Oporajita.'],
+    ['photos/photo2.jpg','photos/photo2.svg','Ei Sharee ta amar jonno porchile.'],
+    ['photos/photo3.jpg','photos/photo3.svg','Sukno ful tmr hate khub manay.'],
+    ['photos/photo4.jpg','photos/photo4.svg','The only phot I showed to my parents. 💕'],
+    ['photos/photo5.jpg','photos/photo5.svg','Do you remeber why I gave you those flowers?.'],
+    ['photos/photo6.jpg','photos/photo6.svg','This was the end or not...???']
   ];
   var reel=document.getElementById('photoReel'),dots=document.getElementById('reelDots'),ri=0,reelStarted=false,reelTimer;
   photos.forEach(function(p,i){var card=document.createElement('div');card.className='photo-card';card.innerHTML='<div class="photo-wrap"><img src="'+p[0]+'" data-fallback="'+p[1]+'" alt="Memory '+(i+1)+'"><div class="photo-shine"></div></div><div class="photo-note">'+p[2]+'</div><div class="photo-number">0'+(i+1)+'</div>';card.onclick=function(){ri=i;renderReel();};reel.appendChild(card);var d=document.createElement('button');d.className='reel-dot';d.onclick=function(){ri=i;renderReel();};dots.appendChild(d);});
